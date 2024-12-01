@@ -8,8 +8,21 @@ module.exports=(err,req, res, next)=>{
         const message= `Resource not found Invalid. ${err.path}` 
         err= new ErrorHandler(message,400);
      }
+
+// mongoose dublicate key errors
+
+if(err.code==11000){
+   err= new ErrorHandler(`dublicate ${object} entered`);
+}
+ 
+if(err.name= " JsonWebTokenError"){
+    const message= `json web token error`;
+    err= new ErrorHandler(message, 400);
+}
+
     res.status(err.statusCode).json({
         success:false,
         message: err
     })
 }
+
